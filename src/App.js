@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Home from './components/pages/Home/Home';
+import api from './api';
 
 class App extends Component {
   constructor(props) {
@@ -46,37 +47,46 @@ class App extends Component {
   //     });
   // }
 
+  // componentDidMount() {
+  //   fetch('https://academy-video-api.herokuapp.com/content/free-items', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then((response) => {
+  //       console.log('Vyksta fetch');
+  //       if (!response.ok) throw new Error(response.status);
+  //       else return response.json();
+  //     })
+  //     .then(
+  //       (data) => {
+  //         this.setState({ isLoading: false, movies: data });
+  //         console.log('Ivyko fetch priskyrimas duomenu', this.state);
+  //       },
+  //       (err) => {
+  //         console.log('Erroras:', err);
+  //         this.setState({
+  //           error: err,
+  //           isLoading: false,
+  //         });
+  //       }
+  //     );
+  // }
+
   componentDidMount() {
-    const apiURL = process.env.REACT_APP_API_URL;
-    console.log('apiURL:', apiURL);
-    fetch(apiURL, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => {
-        console.log('Vyksta fetch');
-        if (!response.ok) throw new Error(response.status);
-        else return response.json();
-      })
-      .then(
-        (data) => {
-          this.setState({ isLoading: false, movies: data });
-          console.log('Ivyko fetch priskyrimas duomenu', this.state);
-        },
-        (err) => {
-          console.log('Erroras:', err);
-          this.setState({
-            error: err,
-            isLoading: false,
-          });
-        }
-      );
+    api.getFreeItems(
+      (data) => this.setState({ isLoading: false, movies: data }),
+      (error) => {
+        this.setState({ isLoading: false, error: error.message });
+        console.error('Erroras:', error);
+      }
+    );
   }
 
   componentDidCatch(error, info) {
-    this.setState({ error: 'Kazkokia klaida' });
+    console.log('componentDidCatch info:', info);
+    this.setState({ error: error.message });
   }
 
   render() {

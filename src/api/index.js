@@ -1,11 +1,24 @@
-
-
-export const getCategories = async (success, failure) => {
+// const apiURL = process.env.REACT_APP_API_URL;
+const apiURL = 'https://academy-video-api.herokuapp.com';
+export const getFreeItems = async (success, failure) => {
   try {
-    const response = await fetch(`${url}/content/free-items`, reqOptions);
-    const categories = await response.json();
-    success(categories);
+    const reqOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const response = await fetch(`${apiURL}/content/free-items`, reqOptions);
+    const data = await response.json();
+
+    success(data);
   } catch (error) {
     failure(error);
   }
-}
+};
+
+const api = {
+  getFreeItems,
+};
+
+export default api;
