@@ -47,7 +47,9 @@ class App extends Component {
   // }
 
   componentDidMount() {
-    fetch(`https://academy-video-api.herokuapp.com/content/free-items`, {
+    const apiURL = process.env.REACT_APP_API_URL;
+    console.log('apiURL:', apiURL);
+    fetch(apiURL, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
