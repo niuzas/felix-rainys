@@ -1,0 +1,21 @@
+.movies {
+  margin: 50px 0;
+}
+.movies-container {
+  width: 100%;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.movies-loading {
+  font-size: 36px;
+  text-align: center;
+}
+
+.movies-error {
+  font-size: 36px;
+  text-align: center;
+  color: var(--red);
+}
